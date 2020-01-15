@@ -13,7 +13,6 @@ struct ContentView: View {
     @State private var numberOfPeople = ""
     @State private var tipPercentage = 2
     let tipPercentages = [10, 15, 20, 25, 0]
-    
     var grandTotal: Double {
         let orderAmount = Double(checkAmount) ?? 0
         let tipMount = Double(tipPercentages[tipPercentage])
@@ -53,6 +52,7 @@ struct ContentView: View {
                 Section(header: Text("Amount per person")) {
                     Text("$\(totalPerPerson, specifier: "%.2f")")
                 }
+                
             }.navigationBarTitle("WeSplit")
         }
     }
