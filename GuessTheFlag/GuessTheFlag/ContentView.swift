@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+struct FlagImage: View {
+    let url: String
+    var body: some View {
+        Image(url)
+        .renderingMode(.original)
+        .clipShape(Capsule())
+        .overlay(Capsule().stroke(Color.white, lineWidth: 1))
+        .shadow(color: .white, radius: 2)
+    }
+}
 struct ContentView: View {
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
@@ -15,7 +25,8 @@ struct ContentView: View {
     @State private var scoreTitle = ""
     var body: some View {
         ZStack {
-            Color.blue.edgesIgnoringSafeArea(.all)
+            LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
             VStack (spacing: 30){
                 VStack {
                     Text("Tap the flag of")
@@ -23,13 +34,15 @@ struct ContentView: View {
                         .foregroundColor(.white)
                     Text(countries[correctAnswer])
                         .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.black)
                 }
                 ForEach(0..<3){ number in
                     Button(action: {
                         self.flapped(number)
                     }) {
-                        Image(self.countries[number])
-                            .renderingMode(.original)
+                        FlagImage(url: self.countries[number])
+                            
                     }
                     
                 }
